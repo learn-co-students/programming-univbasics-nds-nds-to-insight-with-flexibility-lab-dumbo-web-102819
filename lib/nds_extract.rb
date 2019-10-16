@@ -21,7 +21,7 @@ def flatten_a_o_a(aoa)
 end
 
 def movie_with_director_name(director_name, movie_data)
-  { 
+  {
     :title => movie_data[:title],
     :worldwide_gross => movie_data[:worldwide_gross],
     :release_year => movie_data[:release_year],
@@ -34,6 +34,12 @@ end
 # Your code after this point
 
 def movies_with_director_key(name, movies_collection)
+  new_array = Array.new
+  index = 0
+  while index < movies_collection.size do
+    new_array << movie_with_director_name(name, movies_collection[index])
+    index += 1
+  end
   # GOAL: For each Hash in an Array (movies_collection), provide a collection
   # of movies and a directors name to the movie_with_director_name method
   # and accumulate the returned Array of movies into a new Array that's
@@ -48,6 +54,7 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+  new_array
 end
 
 
@@ -63,9 +70,22 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
+  new_hash = Hash.new
+  index = 0
+  while index < collection.size do
+    studio_name = collection[index][:studio]
+    if new_hash[studio_name] == nil
+      new_hash[studio_name] = collection[index][:worldwide_gross]
+    else
+      new_hash[studio_name] += collection[index][:worldwide_gross]
+    end
+    index += 1
+  end
+  new_hash
 end
 
 def movies_with_directors_set(source)
+
   # GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
@@ -76,6 +96,16 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
+  new_array = Array.new
+  index = 0
+  while index < source.size do
+    director_name = source[index][:name]
+    movies_hash = source[index][:movies]
+    new_aoh_with_names = movies_with_director_key(director_name, movies_hash)
+    new_array << new_aoh_with_names
+    index += 1
+  end
+  new_array
 end
 
 # ----------------    End of Your Code Region --------------------
