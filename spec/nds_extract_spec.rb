@@ -30,7 +30,6 @@ describe 'movies_with_director_key' do
     updated_movies = movies_with_director_key(dir_name, test_set)
     expect(updated_movies[0][:director_name]).to eq(dir_name), "Should add director name to each movie Hash"
     expect(updated_movies[1][:director_name]).to eq(dir_name), "Should add director name to each movie Hash"
-  end
 end
 
 describe 'movies_with_directors_set' do
